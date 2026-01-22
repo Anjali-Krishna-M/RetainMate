@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container pb-5 animate-up">
+    
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h2 class="fw-bold mb-0">Database</h2>
+            <p class="text-muted small">History of analyzed clients</p>
+        </div>
+        <a href="/predict" class="btn btn-primary shadow-lg">
+            <i class="bi bi-plus-lg"></i> Run Analysis
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-md overflow-hidden">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4 py-4 text-muted small fw-bold text-uppercase">ID</th>
+                            <th class="py-4 text-muted small fw-bold text-uppercase">Gender</th>
+                            <th class="py-4 text-muted small fw-bold text-uppercase">Contract</th>
+                            <th class="py-4 text-muted small fw-bold text-uppercase">Charges</th>
+                            <th class="py-4 text-muted small fw-bold text-uppercase">Status</th>
+                            <th class="pe-4 py-4 text-end text-muted small fw-bold text-uppercase">Risk Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in customers %}
+                        <tr>
+                            <td class="ps-4 py-4 fw-bold text-dark">#{{ c.customer_id }}</td>
+                            <td class="py-4">
+                                <span class="badge bg-light text-dark border fw-normal">{{ c.gender }}</span>
+                            </td>
+                            <td class="py-4 text-muted small">{{ c.contract }}</td>
+                            <td class="py-4 fw-bold">${{ c.monthly_charges }}</td>
+                            <td class="py-4">
+                                {% if c.churn == "Yes" %}
+                                    <span class="status-risk"><i class="bi bi-exclamation-circle me-1"></i> Risk</span>
+                                {% else %}
+                                    <span class="status-safe"><i class="bi bi-check-circle me-1"></i> Safe</span>
+                                {% endif %}
+                            </td>
+                            <td class="pe-4 py-4 text-end fw-bold">
+                                {{ c.churn_probability }}%
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted">No data available.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

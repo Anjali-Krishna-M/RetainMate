@@ -1,0 +1,177 @@
+/* --- 3D MODERN THEME --- */
+:root {
+    --primary: #10b981;       /* Emerald Green */
+    --primary-dark: #059669;
+    --primary-light: #d1fae5;
+    
+    --danger: #ef4444;        /* Soft Red */
+    --danger-dark: #dc2626;
+    --danger-light: #fee2e2;
+    
+    --dark: #1e293b;          /* Slate Navy */
+    --muted: #64748b;         /* Slate Grey */
+    
+    --bg-color: #f1f5f9;      /* Crisp Grey-Blue Background */
+    
+    /* 3D Shadows */
+    --shadow-sm: 0 2px 4px rgba(148, 163, 184, 0.4);
+    --shadow-md: 0 10px 15px -3px rgba(148, 163, 184, 0.3), 0 4px 6px -4px rgba(148, 163, 184, 0.2);
+    --shadow-lg: 0 20px 25px -5px rgba(148, 163, 184, 0.3), 0 8px 10px -6px rgba(148, 163, 184, 0.2);
+    
+    --card-border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5 {
+    color: var(--dark);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+/* --- LOGO STYLING --- */
+.logo-box {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: 10px; /* Squircle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+    transform: rotate(-5deg); /* Slight jaunty angle */
+}
+
+.brand-text {
+    font-weight: 800;
+    font-size: 1.35rem;
+    background: linear-gradient(to right, var(--dark), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- NAVBAR --- */
+.navbar {
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 1rem 0;
+}
+
+.nav-link {
+    color: var(--muted) !important;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--primary) !important;
+}
+
+/* --- 3D CARDS --- */
+.card {
+    background: white;
+    border: var(--card-border);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Physical Lift */
+    box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+    background: white;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 1.5rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* --- BUTTONS (Pill & Gradient) --- */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border: none;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 50px; /* Modern Pill Shape */
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+}
+
+.btn-outline-secondary {
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-weight: 600;
+}
+
+/* --- INPUTS --- */
+.form-control, .form-select {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 14px;
+    transition: all 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+    background: white;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-light);
+    transform: translateY(-1px);
+}
+
+/* --- BADGES & STATUS --- */
+.status-pill {
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-safe {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+.status-risk {
+    background: var(--danger-light);
+    color: var(--danger-dark);
+}
+
+/* --- ANIMATION UTILS --- */
+.animate-up {
+    animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
