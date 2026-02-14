@@ -1,57 +1,45 @@
 document.addEventListener("DOMContentLoaded", function () {
     
-    // --- ANIMATED CHART DEFAULTS ---
-    Chart.defaults.color = '#64748b'; 
-    Chart.defaults.font.family = "'Inter', sans-serif";
-    Chart.defaults.borderColor = 'transparent';
-
-    const churnChartCanvas = document.getElementById('churnChart');
+    // --- CHART DEFAULTS FOR DARK MODE ---
+    Chart.defaults.color = '#a0a0a0'; 
+    Chart.defaults.borderColor = '#333';
     
-    if (churnChartCanvas) {
-        const churnCount = parseInt(churnChartCanvas.dataset.churn);
-        const safeCount = parseInt(churnChartCanvas.dataset.safe);
+    // Check if we are on the dashboard
+    const ctx = document.getElementById('churnChart');
+    
+    if (ctx) {
+        // Read data from HTML data attributes
+        const churnCount = parseInt(ctx.dataset.churn);
+        const safeCount = parseInt(ctx.dataset.safe);
 
-        new Chart(churnChartCanvas, {
+        new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['Risk', 'Safe'],
+                labels: ['High Risk', 'Safe'],
                 datasets: [{
                     data: [churnCount, safeCount],
                     backgroundColor: [
-                        '#ef4444', // Red
-                        '#10b981'  // Green
+                        '#cf6679', // Red/Pink
+                        '#03dac6'  // Teal
                     ],
                     borderWidth: 0,
-                    hoverOffset: 15,
-                    borderRadius: 5 // Rounded edges on the donut segments
+                    hoverOffset: 10
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                animation: {
-                    animateScale: true,
-                    animateRotate: true,
-                    duration: 1500, // Slow, premium animation
-                    easing: 'easeOutQuart'
-                },
+                cutout: '75%', // Thin modern ring
                 plugins: {
                     legend: {
                         position: 'bottom',
                         labels: {
+                            padding: 20,
                             usePointStyle: true,
-                            padding: 25,
-                            font: { size: 12, weight: '600' }
+                            font: { size: 12 }
                         }
-                    },
-                    tooltip: {
-                        backgroundColor: '#0f172a',
-                        padding: 12,
-                        cornerRadius: 8,
-                        displayColors: false
                     }
-                },
-                cutout: '80%' // Very thin, modern ring
+                }
             }
         });
     }

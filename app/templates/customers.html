@@ -1,60 +1,56 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="container pb-5 animate-up">
-    
-    <div class="d-flex justify-content-between align-items-center mb-5">
+<div class="card shadow-lg">
+    <div class="card-header d-flex justify-content-between align-items-center pt-4 px-4 border-0">
+        <h3 class="mb-0 fw-bold text-white">Customer Database</h3>
         <div>
-            <h2 class="fw-bold mb-0">Database</h2>
-            <p class="text-muted small">History of analyzed clients</p>
+            <span class="badge bg-dark border border-secondary text-muted me-2">{{ customers|length }} Records</span>
+            <button class="btn btn-sm btn-outline-light"><i class="bi bi-download"></i> Export</button>
         </div>
-        <a href="/predict" class="btn btn-primary shadow-lg">
-            <i class="bi bi-plus-lg"></i> Run Analysis
-        </a>
     </div>
-
-    <div class="card border-0 shadow-md overflow-hidden">
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="ps-4 py-4 text-muted small fw-bold text-uppercase">ID</th>
-                            <th class="py-4 text-muted small fw-bold text-uppercase">Gender</th>
-                            <th class="py-4 text-muted small fw-bold text-uppercase">Contract</th>
-                            <th class="py-4 text-muted small fw-bold text-uppercase">Charges</th>
-                            <th class="py-4 text-muted small fw-bold text-uppercase">Status</th>
-                            <th class="pe-4 py-4 text-end text-muted small fw-bold text-uppercase">Risk Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for c in customers %}
-                        <tr>
-                            <td class="ps-4 py-4 fw-bold text-dark">#{{ c.customer_id }}</td>
-                            <td class="py-4">
-                                <span class="badge bg-light text-dark border fw-normal">{{ c.gender }}</span>
-                            </td>
-                            <td class="py-4 text-muted small">{{ c.contract }}</td>
-                            <td class="py-4 fw-bold">${{ c.monthly_charges }}</td>
-                            <td class="py-4">
-                                {% if c.churn == "Yes" %}
-                                    <span class="status-risk"><i class="bi bi-exclamation-circle me-1"></i> Risk</span>
-                                {% else %}
-                                    <span class="status-safe"><i class="bi bi-check-circle me-1"></i> Safe</span>
-                                {% endif %}
-                            </td>
-                            <td class="pe-4 py-4 text-end fw-bold">
-                                {{ c.churn_probability }}%
-                            </td>
-                        </tr>
-                        {% else %}
-                        <tr>
-                            <td colspan="6" class="text-center py-5 text-muted">No data available.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="dataTable" class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Charges</th>
+                        <th>Risk Score</th>
+                        <th>Primary Risk Factor</th> <th>Suggestion</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in customers %}
+                    <tr>
+                        <td class="text-muted small">#{{ c.customer_id }}</td>
+                        <td class="fw-bold">${{ c.monthly_charges }}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-bold small {{ 'text-danger' if c.churn_probability > 50 else 'text-success' }}">{{ c.churn_probability }}%</span>
+                                <div class="progress flex-grow-1" style="height: 4px; width: 60px; background-color: #333;">
+                                    <div class="progress-bar {{ 'bg-danger' if c.churn_probability > 50 else 'bg-success' }}" 
+                                         style="width: {{ c.churn_probability }}%"></div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="small text-white">
+                            {% if c.churn_probability > 50 %}
+                                <i class="bi bi-exclamation-triangle-fill text-warning me-1"></i> {{ c.main_reason }}
+                            {% else %}
+                                <span class="text-muted">{{ c.main_reason }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="small text-muted">{{ c.suggestion }}</td>
+                        <td>
+                            <span class="badge {{ 'bg-danger' if c.churn == 'Yes' else 'bg-success' }} bg-opacity-25 text-white border {{ 'border-danger' if c.churn == 'Yes' else 'border-success' }}">
+                                {{ 'High Risk' if c.churn == 'Yes' else 'Safe' }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

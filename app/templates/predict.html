@@ -1,99 +1,208 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="container pb-5 animate-up">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">New Analysis</h2>
-                <p class="text-muted">Enter client data to generate a risk profile.</p>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow-lg mb-4">
+            <div class="card-header bg-transparent py-3">
+                <h5 class="mb-0 text-white"><i class="bi bi-sliders me-2 text-primary"></i>Customer Analysis Configuration</h5>
             </div>
+            <div class="card-body">
+                <form action="/predict" method="POST">
+                    
+                    <h6 class="text-primary text-uppercase small fw-bold mb-3 border-bottom border-secondary pb-2">1. Personal Profile</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Gender</label>
+                            <select name="gender" class="form-select">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Senior Citizen</label>
+                            <select name="SeniorCitizen" class="form-select">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Partner</label>
+                            <select name="Partner" class="form-select">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Dependents</label>
+                            <select name="Dependents" class="form-select">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label">Tenure (Months)</label>
+                            <input type="number" name="tenure" class="form-control" placeholder="e.g. 24" required>
+                        </div>
+                    </div>
 
-            <div class="card border-0 shadow-lg">
-                <div class="card-body p-5">
-                    <form action="/predict" method="POST">
+                    <h6 class="text-info text-uppercase small fw-bold mb-3 border-bottom border-secondary pb-2">2. Services Subscribed</h6>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Phone Service</label>
+                            <select name="PhoneService" class="form-select">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Multiple Lines</label>
+                            <select name="MultipleLines" class="form-select">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No phone service">No phone service</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Internet Service</label>
+                            <select name="InternetService" class="form-select">
+                                <option value="Fiber optic">Fiber Optic</option>
+                                <option value="DSL">DSL</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
                         
-                        <h6 class="text-uppercase text-primary fw-bold mb-4"><i class="bi bi-person-badge me-2"></i>Demographics</h6>
-                        <div class="row mb-5">
-                            <div class="col-md-3">
-                                <label class="form-label text-muted small fw-bold">Gender</label>
-                                <select name="gender" class="form-select"><option value="Male">Male</option><option value="Female">Female</option></select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label text-muted small fw-bold">Senior Citizen</label>
-                                <select name="SeniorCitizen" class="form-select"><option value="0">No</option><option value="1">Yes</option></select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label text-muted small fw-bold">Partner</label>
-                                <select name="Partner" class="form-select"><option value="No">No</option><option value="Yes">Yes</option></select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label text-muted small fw-bold">Dependents</label>
-                                <select name="Dependents" class="form-select"><option value="No">No</option><option value="Yes">Yes</option></select>
-                            </div>
+                        <div class="col-md-3">
+                            <label class="form-label small">Online Security</label>
+                            <select name="OnlineSecurity" class="form-select form-select-sm">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
                         </div>
-
-                        <div class="row mb-5">
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small fw-bold">Tenure (Months)</label>
-                                <input type="number" name="tenure" class="form-control" placeholder="e.g. 24" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small fw-bold">Paperless Billing</label>
-                                <select name="PaperlessBilling" class="form-select"><option value="Yes">Yes</option><option value="No">No</option></select>
-                            </div>
+                        <div class="col-md-3">
+                            <label class="form-label small">Online Backup</label>
+                            <select name="OnlineBackup" class="form-select form-select-sm">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
                         </div>
-
-                        <h6 class="text-uppercase text-primary fw-bold mb-4 pt-4 border-top"><i class="bi bi-hdd-network me-2"></i>Services</h6>
-                        <div class="row mb-4">
-                            <div class="col-md-4">
-                                <label class="form-label text-muted small fw-bold">Phone Service</label>
-                                <select name="PhoneService" class="form-select"><option value="Yes">Yes</option><option value="No">No</option></select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label text-muted small fw-bold">Internet Service</label>
-                                <select name="InternetService" class="form-select"><option value="DSL">DSL</option><option value="Fiber optic">Fiber Optic</option><option value="No">No</option></select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label text-muted small fw-bold">Online Security</label>
-                                <select name="OnlineSecurity" class="form-select"><option value="No">No</option><option value="Yes">Yes</option><option value="No internet service">No Internet</option></select>
-                            </div>
+                        <div class="col-md-3">
+                            <label class="form-label small">Device Protect</label>
+                            <select name="DeviceProtection" class="form-select form-select-sm">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
                         </div>
-                        
-                        <input type="hidden" name="MultipleLines" value="No"><input type="hidden" name="OnlineBackup" value="No"><input type="hidden" name="DeviceProtection" value="No"><input type="hidden" name="TechSupport" value="No"><input type="hidden" name="StreamingTV" value="No"><input type="hidden" name="StreamingMovies" value="No">
-
-                        <h6 class="text-uppercase text-primary fw-bold mb-4 pt-4 border-top"><i class="bi bi-credit-card me-2"></i>Financials</h6>
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small fw-bold">Contract</label>
-                                <select name="Contract" class="form-select"><option value="Month-to-month">Month-to-month</option><option value="One year">One Year</option><option value="Two year">Two Year</option></select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small fw-bold">Payment Method</label>
-                                <select name="PaymentMethod" class="form-select"><option value="Electronic check">Electronic Check</option><option value="Mailed check">Mailed Check</option><option value="Bank transfer (automatic)">Bank Transfer</option><option value="Credit card (automatic)">Credit Card</option></select>
-                            </div>
+                        <div class="col-md-3">
+                            <label class="form-label small">Tech Support</label>
+                            <select name="TechSupport" class="form-select form-select-sm">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
                         </div>
-
-                        <div class="row mb-5">
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small fw-bold">Monthly Charges ($)</label>
-                                <input type="number" step="0.01" name="MonthlyCharges" class="form-control" placeholder="0.00" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-muted small fw-bold">Total Charges ($)</label>
-                                <input type="number" step="0.01" name="TotalCharges" class="form-control" placeholder="0.00" required>
-                            </div>
+                        <div class="col-md-6">
+                            <label class="form-label small">Streaming TV</label>
+                            <select name="StreamingTV" class="form-select form-select-sm">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label small">Streaming Movies</label>
+                            <select name="StreamingMovies" class="form-select form-select-sm">
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
 
-                        <button type="submit" class="btn btn-primary btn-lg w-100 py-3 shadow-lg">
-                            Run Analysis
-                        </button>
+                    <h6 class="text-warning text-uppercase small fw-bold mb-3 border-bottom border-secondary pb-2">3. Financial & Billing</h6>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Contract</label>
+                            <select name="Contract" class="form-select">
+                                <option value="Month-to-month">Month-to-month</option>
+                                <option value="One year">One Year</option>
+                                <option value="Two year">Two Year</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Payment Method</label>
+                            <select name="PaymentMethod" class="form-select">
+                                <option value="Electronic check">Electronic Check</option>
+                                <option value="Mailed check">Mailed Check</option>
+                                <option value="Bank transfer (automatic)">Bank Transfer</option>
+                                <option value="Credit card (automatic)">Credit Card</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Paperless Billing</label>
+                            <select name="PaperlessBilling" class="form-select">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Monthly Charges ($)</label>
+                            <input type="number" step="0.01" name="MonthlyCharges" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Total Charges ($)</label>
+                            <input type="number" step="0.01" name="TotalCharges" class="form-control" required>
+                        </div>
+                    </div>
 
-                    </form>
+                    <button class="btn btn-primary w-100 mt-5 py-3 fw-bold">
+                        <i class="bi bi-cpu me-2"></i> Run Full AI Analysis
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if result %}
+    <div class="col-lg-4">
+        <div class="card border-{{ 'danger' if result.churn == 'Yes' else 'success' }} shadow-lg sticky-top" style="top: 100px;">
+            <div class="card-header bg-transparent text-center pt-4 border-0">
+                <h6 class="text-secondary text-uppercase mb-1">Churn Probability</h6>
+                <h1 class="display-3 fw-bold {{ 'text-danger' if result.churn == 'Yes' else 'text-success' }}">
+                    {{ result.churn_probability }}%
+                </h1>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless mb-0">
+                        <thead class="text-secondary small border-bottom">
+                            <tr><th>Risk Factor</th><th class="text-end">Status</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for factor in factors %}
+                            <tr>
+                                <td>
+                                    <span class="d-block text-white">{{ factor.name }}</span>
+                                    <small class="text-muted" style="font-size: 0.75rem;">{{ factor.detail }}</small>
+                                </td>
+                                <td class="text-end align-middle">
+                                    {% if factor.status == 'Critical' %}
+                                        <i class="bi bi-x-circle-fill text-danger"></i>
+                                    {% elif factor.status == 'Warning' %}
+                                        <i class="bi bi-exclamation-circle-fill text-warning"></i>
+                                    {% else %}
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-4 p-3 rounded bg-dark border border-secondary border-opacity-50">
+                    <h6 class="text-info small fw-bold mb-1"><i class="bi bi-lightbulb-fill me-2"></i>Recommendation</h6>
+                    <p class="mb-0 small text-white">{{ result.suggestion }}</p>
                 </div>
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}
